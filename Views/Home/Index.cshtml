@@ -1,8 +1,583 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "BloodLink - Save Lives";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<style>
+    .classic-serif {
+        font-family: 'Georgia', 'Times New Roman', serif;
+    }
+
+    .navbar-classic {
+        background-color: #FFFFFF !important;
+        border-bottom: 3px solid #C0392B;
+    }
+
+    .navbar-classic .navbar-brand {
+        color: #C0392B !important;
+        font-family: 'Georgia', serif;
+        letter-spacing: 0.5px;
+    }
+
+    .navbar-classic .nav-link {
+        color: #2C3E50 !important;
+        font-weight: 500;
+    }
+
+    .navbar-classic .nav-link:hover {
+        color: #C0392B !important;
+    }
+
+    .hero-classic {
+        background-color: #FFFFFF;
+        border-bottom: 1px solid #eee;
+        padding: 80px 0;
+    }
+
+    .hero-classic h1 {
+        font-family: 'Georgia', serif;
+        color: #2C3E50;
+        font-size: 3rem;
+        font-weight: 700;
+    }
+
+    .hero-classic .accent {
+        color: #C0392B;
+    }
+
+    .hero-classic p.lead {
+        color: #5a6470;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn-classic-primary {
+        background-color: #C0392B;
+        border-color: #C0392B;
+        color: #fff;
+        padding: 12px 32px;
+        font-weight: 600;
+        border-radius: 4px;
+    }
+
+    .btn-classic-primary:hover {
+        background-color: #922B21;
+        border-color: #922B21;
+        color: #fff;
+    }
+
+    .btn-classic-outline {
+        border: 1.5px solid #2C3E50;
+        color: #2C3E50;
+        padding: 12px 32px;
+        font-weight: 600;
+        border-radius: 4px;
+        background: transparent;
+    }
+
+    .btn-classic-outline:hover {
+        background-color: #2C3E50;
+        color: #fff;
+    }
+
+    .divider-line {
+        width: 60px;
+        height: 3px;
+        background-color: #C0392B;
+        margin: 0 auto 24px auto;
+    }
+
+    .section-classic {
+        padding: 70px 0;
+    }
+
+    .section-title-classic {
+        font-family: 'Georgia', serif;
+        color: #2C3E50;
+        font-weight: 700;
+    }
+
+    .stat-classic {
+        border-right: 1px solid #e5e5e5;
+    }
+
+    .stat-classic:last-child {
+        border-right: none;
+    }
+
+    .stat-classic .number {
+        font-family: 'Georgia', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #C0392B;
+    }
+
+    .stat-classic .label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .card-classic {
+        border: 1px solid #eaeaea;
+        border-radius: 6px;
+        padding: 40px 30px;
+        text-align: center;
+        background: #fff;
+        transition: box-shadow 0.25s ease;
+    }
+
+    .card-classic:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-classic .icon-circle {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 2px solid #C0392B;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px auto;
+        color: #C0392B;
+        font-size: 1.5rem;
+    }
+
+    .step-classic {
+        text-align: center;
+    }
+
+    .step-number-classic {
+        font-family: 'Georgia', serif;
+        font-size: 2.2rem;
+        color: #C0392B;
+        font-weight: 700;
+        border-bottom: 2px solid #C0392B;
+        display: inline-block;
+        padding-bottom: 6px;
+        margin-bottom: 16px;
+        min-width: 50px;
+    }
+
+    .table-classic thead {
+        background-color: #2C3E50;
+        color: #fff;
+    }
+
+    .table-classic th,
+    .table-classic td {
+        vertical-align: middle;
+    }
+
+    .bg-muted-classic {
+        background-color: #FAF9F7;
+    }
+
+    .cta-classic {
+        background-color: #2C3E50;
+        color: #fff;
+        padding: 70px 0;
+        text-align: center;
+    }
+
+    .cta-classic h2 {
+        font-family: 'Georgia', serif;
+    }
+
+    .footer-classic {
+        background-color: #1E2A36;
+        color: #cfd6dc;
+        padding: 50px 0 25px 0;
+    }
+
+    .footer-classic h6 {
+        color: #fff;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .footer-classic a {
+        color: #cfd6dc;
+        text-decoration: none;
+    }
+
+    .footer-classic a:hover {
+        color: #C0392B;
+    }
+
+    .accordion-classic .accordion-button {
+        font-family: 'Georgia', serif;
+        font-weight: 600;
+        color: #2C3E50;
+        background-color: #fff;
+    }
+
+    .accordion-classic .accordion-button:not(.collapsed) {
+        background-color: #FAF9F7;
+        color: #C0392B;
+        box-shadow: none;
+    }
+
+    .accordion-classic .accordion-button:focus {
+        box-shadow: none;
+    }
+</style>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-classic sticky-top py-3">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3" asp-action="Index">
+            <i class="bi bi-droplet-fill me-2"></i>BloodLink
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center gap-3">
+                <li class="nav-item"><a class="nav-link" asp-action="Index">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+                <li class="nav-item"><a class="nav-link" href="#compatibility">Blood Types</a></li>
+                <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" asp-action="Login">Sign In</a></li>
+                <li class="nav-item">
+                    <a class="btn btn-classic-primary btn-sm" asp-action="Register">Become a Donor</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-classic text-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <p class="text-uppercase text-danger fw-semibold small mb-3" style="letter-spacing: 2px;">
+                    Nepal's Trusted Blood Donation Network
+                </p>
+                <h1 class="mb-4">
+                    One Drop Can Save<br><span class="accent">Three Lives</span>
+                </h1>
+                <p class="lead fs-5 mb-5">
+                    Join a community of compassionate donors making a real difference
+                    in emergency situations across Nepal.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                    <a asp-action="Register" class="btn btn-classic-primary">
+                        <i class="bi bi-person-plus-fill me-2"></i>Register as Donor
+                    </a>
+                    <a asp-controller="BloodRequests" asp-action="Create" class="btn btn-classic-outline">
+                        Need Blood Urgently?
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trust Bar -->
+<section class="py-3 bg-muted-classic border-bottom">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-9">
+                <small class="text-muted d-flex align-items-center justify-content-center gap-4 flex-wrap">
+                    <span><i class="bi bi-shield-check text-danger me-1"></i>Verified Donors</span>
+                    <span><i class="bi bi-hospital text-danger me-1"></i>Trusted by Partner Hospitals</span>
+                    <span><i class="bi bi-clock-history text-danger me-1"></i>24/7 Emergency Support</span>
+                    <span><i class="bi bi-lock-fill text-danger me-1"></i>Secure & Private Data</span>
+                </small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics -->
+<section class="section-classic">
+    <div class="container">
+        <div class="row text-center g-0">
+            <div class="col-md-3 col-6 stat-classic mb-4 mb-md-0">
+                <div class="number">@ViewBag.LivesSaved</div>
+                <div class="label">Lives Saved</div>
+            </div>
+            <div class="col-md-3 col-6 stat-classic mb-4 mb-md-0">
+                <div class="number">@ViewBag.TotalDonors</div>
+                <div class="label">Registered Donors</div>
+            </div>
+            <div class="col-md-3 col-6 stat-classic mb-4 mb-md-0">
+                <div class="number">@ViewBag.PartnerHospitals</div>
+                <div class="label">Partner Hospitals</div>
+            </div>
+            <div class="col-md-3 col-6 stat-classic">
+                <div class="number">@ViewBag.SuccessRate%</div>
+                <div class="label">Success Rate</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section id="how-it-works" class="section-classic bg-muted-classic">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="divider-line"></div>
+            <h2 class="section-title-classic">How BloodLink Works</h2>
+            <p class="text-muted">A simple, dependable process for donors and recipients alike</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3 col-6 step-classic">
+                <div class="step-number-classic">01</div>
+                <h6 class="fw-semibold">Register</h6>
+                <p class="text-muted small">Sign up with your blood group, contact details, and location.</p>
+            </div>
+            <div class="col-md-3 col-6 step-classic">
+                <div class="step-number-classic">02</div>
+                <h6 class="fw-semibold">Get Verified</h6>
+                <p class="text-muted small">Our team confirms your details so requesters can trust the network.</p>
+            </div>
+            <div class="col-md-3 col-6 step-classic">
+                <div class="step-number-classic">03</div>
+                <h6 class="fw-semibold">Get Matched</h6>
+                <p class="text-muted small">Patients search by blood group and location to find nearby donors.</p>
+            </div>
+            <div class="col-md-3 col-6 step-classic">
+                <div class="step-number-classic">04</div>
+                <h6 class="fw-semibold">Save a Life</h6>
+                <p class="text-muted small">Coordinate directly and donate at a trusted hospital or blood bank.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="section-classic">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="divider-line"></div>
+            <h2 class="section-title-classic">Why BloodLink Stands Out</h2>
+            <p class="text-muted">Built with care for donors and recipients</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-classic h-100">
+                    <div class="icon-circle"><i class="bi bi-speedometer2"></i></div>
+                    <h5 class="fw-semibold">Lightning Fast</h5>
+                    <p class="text-muted mb-0">Register in minutes. Find donors in seconds during emergencies.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-classic h-100">
+                    <div class="icon-circle"><i class="bi bi-people-fill"></i></div>
+                    <h5 class="fw-semibold">Strong Community</h5>
+                    <p class="text-muted mb-0">Join a growing network of Nepali donors committed to saving lives.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-classic h-100">
+                    <div class="icon-circle"><i class="bi bi-award"></i></div>
+                    <h5 class="fw-semibold">Fully Transparent</h5>
+                    <p class="text-muted mb-0">Track your donation history and see your real-world impact.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blood Compatibility -->
+<section id="compatibility" class="section-classic bg-muted-classic">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="divider-line"></div>
+            <h2 class="section-title-classic">Blood Type Compatibility</h2>
+            <p class="text-muted">A quick reference guide for donors and recipients</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-classic table-bordered bg-white text-center align-middle shadow-sm">
+                <thead>
+                    <tr>
+                        <th>Blood Type</th>
+                        <th>Can Donate To</th>
+                        <th>Can Receive From</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-semibold">O−</td>
+                        <td>All types (universal donor)</td>
+                        <td>O−</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">O+</td>
+                        <td>O+, A+, B+, AB+</td>
+                        <td>O+, O−</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">A−</td>
+                        <td>A−, A+, AB−, AB+</td>
+                        <td>A−, O−</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">A+</td>
+                        <td>A+, AB+</td>
+                        <td>A+, A−, O+, O−</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">B−</td>
+                        <td>B−, B+, AB−, AB+</td>
+                        <td>B−, O−</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">B+</td>
+                        <td>B+, AB+</td>
+                        <td>B+, B−, O+, O−</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">AB−</td>
+                        <td>AB−, AB+</td>
+                        <td>AB−, A−, B−, O−</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">AB+</td>
+                        <td>AB+ only</td>
+                        <td>All types (universal recipient)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-muted small text-center mt-3 mb-0">
+            <i class="bi bi-info-circle me-1"></i>General reference only — always confirm compatibility with a medical
+            professional.
+        </p>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-classic">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="divider-line"></div>
+            <h2 class="section-title-classic">Frequently Asked Questions</h2>
+            <p class="text-muted">Everything you need to know before you get started</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion accordion-classic" id="faqAccordion">
+
+                    <div class="accordion-item mb-3 border rounded overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq1">
+                                Who can donate blood?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Most healthy adults aged 18–65, weighing at least 50 kg, can donate blood. A quick
+                                health screening is done before every donation to confirm eligibility.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item mb-3 border rounded overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq2">
+                                How often can I donate?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Whole blood donors should generally wait at least 3 months between donations to allow
+                                the body to fully replenish red blood cells.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item mb-3 border rounded overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq3">
+                                Is my personal information kept private?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Yes. Your contact details are only shared with verified requesters when there's a
+                                genuine match for your blood group.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item mb-3 border rounded overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq4">
+                                What if I need blood urgently?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Use the "Need Blood Urgently?" button above to submit a request with your required blood
+                                group and hospital. Matching donors nearby will be notified right away.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-classic">
+    <div class="container">
+        <div class="col-lg-7 mx-auto">
+            <h2 class="mb-3">Be Someone's Lifeline Today</h2>
+            <p class="mb-4" style="color:#cfd6dc;">Your small act of kindness can give someone a lifetime of hope.</p>
+            <a asp-action="Register" class="btn btn-classic-primary">
+                <i class="bi bi-person-plus-fill me-2"></i>Join BloodLink Now
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer-classic">
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-md-5">
+                <h6 class="fs-5"><i class="bi bi-droplet-fill me-2 text-danger"></i>BloodLink</h6>
+                <p class="small mt-2" style="max-width: 380px;">
+                    A dependable platform dedicated to making blood donation accessible,
+                    safe, and impactful across Nepal.
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h6>Quick Links</h6>
+                <ul class="list-unstyled small mt-2">
+                    <li class="mb-2"><a asp-action="Register">Become a Donor</a></li>
+                    <li class="mb-2"><a asp-action="Login">Sign In</a></li>
+                    <li class="mb-2"><a href="#compatibility">Blood Type Guide</a></li>
+                    <li class="mb-2"><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h6>Emergency Contact</h6>
+                <p class="small mt-2 mb-1"><i class="bi bi-telephone-fill me-2"></i>985-XXXXXXX</p>
+                <p class="small mb-0"><i class="bi bi-envelope-fill me-2"></i>info@bloodlink.org.np</p>
+            </div>
+        </div>
+        <hr class="my-4" style="border-color:#3a4a58;">
+        <div class="text-center small">
+            © 2026 BloodLink. All Rights Reserved. | Made with care for Nepal
+        </div>
+    </div>
+</footer>

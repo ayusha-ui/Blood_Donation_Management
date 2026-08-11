@@ -1,0 +1,221 @@
+@model Blood_Donation_Management.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow border-0 rounded-4 overflow-hidden">
+
+                <!-- Header -->
+                <div class="card-header text-center py-4 bg-danger text-white">
+                    <h1 class="h2 mb-2">
+                        <i class="bi bi-heart-pulse-fill me-2"></i>
+                        Blood Donation Management
+                    </h1>
+                    <p class="mb-0 opacity-90">
+                        Join us in saving lives. Create your account today.
+                    </p>
+                </div>
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <form asp-action="Register" method="post" id="registerForm" class="needs-validation" novalidate>
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Please fix the errors below and try again.</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                        <!-- Full Name -->
+                        <div class="mb-4">
+                            <label asp-for="FullName" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                                <input asp-for="FullName" class="form-control" placeholder="Enter your full name"
+                                       required>
+                            </div>
+                            <span asp-validation-for="FullName" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-4">
+                            <label asp-for="Email" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                                <input asp-for="Email" type="email" class="form-control" placeholder="your@email.com"
+                                       required>
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Phone & Blood Group + Gender -->
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="PhoneNumber" class="form-label fw-semibold"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                                    <input asp-for="PhoneNumber" class="form-control" placeholder="98XXXXXXXX"
+                                           pattern="98[0-9]{8}" title="Phone number must start with 98 and be 10 digits"
+                                           required>
+                                </div>
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="BloodGroup" class="form-label fw-semibold"></label>
+                                <select asp-for="BloodGroup" class="form-select" required>
+                                    <option value="">Select Blood Group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                                <span asp-validation-for="BloodGroup" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <!-- Gender & Date of Birth -->
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="Gender" class="form-label fw-semibold"></label>
+                                <select asp-for="Gender" class="form-select" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span asp-validation-for="Gender" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="DateOfBirth" class="form-label fw-semibold"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                    <input asp-for="DateOfBirth" type="date" class="form-control"
+                                           max="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                                </div>
+                                <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mb-4">
+                            <label asp-for="Address" class="form-label fw-semibold"></label>
+                            <textarea asp-for="Address" class="form-control" rows="3"
+                                      placeholder="Enter your complete address"></textarea>
+                            <span asp-validation-for="Address" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-4">
+                            <label asp-for="Password" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                <input asp-for="Password" type="password" id="password" class="form-control"
+                                       placeholder="Create a strong password" minlength="6" required>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Confirm Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                <input type="password" id="confirmPassword" class="form-control"
+                                       placeholder="Confirm your password" required>
+                            </div>
+                            <small id="passwordMatchError" class="text-danger"></small>
+                        </div>
+
+                        <!-- Is Donor -->
+                        <div class="form-check mb-4">
+                            <input asp-for="IsDonor" class="form-check-input" type="checkbox">
+                            <label asp-for="IsDonor" class="form-check-label fw-medium">
+                                I want to register as a Blood Donor
+                            </label>
+                        </div>
+
+                        <!-- Terms -->
+                        <div class="form-check mb-4">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label small" for="terms">
+                                I agree to the <a href="#" class="text-danger text-decoration-none">Terms &amp;
+                                Conditions</a>
+                                and <a href="#" class="text-danger text-decoration-none">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit" id="submitBtn" class="btn btn-danger w-100 py-3 fw-semibold shadow-sm">
+                            <i class="bi bi-person-plus-fill me-2"></i>
+                            Create Account
+                        </button>
+
+                    </form>
+
+                    <!-- Login Link -->
+                    <div class="text-center mt-4">
+                        <p class="mb-0 text-muted small">
+                            Already have an account?
+                            <a asp-action="Login" class="text-danger text-decoration-none fw-medium">Sign in here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const form = document.getElementById('registerForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const matchError = document.getElementById('passwordMatchError');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Password match validation
+        function validatePasswordMatch() {
+            if (confirmPassword.value && password.value !== confirmPassword.value) {
+                matchError.textContent = "Passwords do not match";
+                confirmPassword.classList.add('is-invalid');
+            } else {
+                matchError.textContent = "";
+                confirmPassword.classList.remove('is-invalid');
+            }
+        }
+
+        password.addEventListener('input', validatePasswordMatch);
+        confirmPassword.addEventListener('input', validatePasswordMatch);
+
+        // Form submit handling
+        form.addEventListener('submit', function (e) {
+            validatePasswordMatch();
+
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault();
+                return;
+            }
+
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+                            Creating Account...
+                        `;
+        });
+    </script>
+}

@@ -1,0 +1,361 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+    :root {
+        --brand-red: #C0392B;
+        --brand-red-dark: #922B21;
+        --brand-navy: #2C3E50;
+        --brand-green: #27AE60;
+        --brand-amber: #F39C12;
+        --bg-soft: #F8F9FA;
+    }
+
+    body {
+        background-color: var(--bg-soft);
+    }
+
+    .dashboard-header {
+        background: linear-gradient(135deg, var(--brand-red), var(--brand-red-dark));
+        border-radius: 14px;
+        padding: 28px 32px;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(192, 57, 43, 0.25);
+    }
+
+    .dashboard-header p {
+        opacity: 0.9;
+        margin-bottom: 0;
+    }
+
+    .btn-logout {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: #fff;
+        font-weight: 500;
+    }
+
+    .btn-logout:hover {
+        background: rgba(255, 255, 255, 0.25);
+        color: #fff;
+    }
+
+    .stat-card {
+        border-radius: 14px;
+        border: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        height: 100%;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        flex-shrink: 0;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+        font-weight: 600;
+    }
+
+    .stat-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--brand-navy);
+        margin-bottom: 0;
+    }
+
+    .section-title {
+        font-weight: 700;
+        color: var(--brand-navy);
+        margin-bottom: 14px;
+    }
+
+    .quick-action-card {
+        border-radius: 14px;
+        border: 1.5px solid #eee;
+        background: #fff;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        height: 100%;
+        transition: all 0.2s ease;
+    }
+
+    .quick-action-card:hover {
+        border-color: var(--brand-red);
+        background: #fff5f4;
+        transform: translateY(-2px);
+    }
+
+    .quick-action-card i {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        display: block;
+        color: var(--brand-red);
+    }
+
+    .quick-action-card .qa-title {
+        font-weight: 600;
+        color: var(--brand-navy);
+        margin-bottom: 2px;
+    }
+
+    .quick-action-card .qa-desc {
+        font-size: 0.78rem;
+        color: #888;
+    }
+
+    .eligibility-alert {
+        border-radius: 12px;
+        border-left: 5px solid var(--brand-amber);
+        background: #fff8e8;
+    }
+
+    .activity-card {
+        border-radius: 14px;
+        border: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .activity-card .card-header {
+        background: #fff;
+        border-bottom: 1px solid #f0f0f0;
+        font-weight: 700;
+        color: var(--brand-navy);
+        border-radius: 14px 14px 0 0 !important;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #999;
+    }
+
+    .empty-state i {
+        font-size: 2.5rem;
+        color: #ddd;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .table thead th {
+        color: #6c757d;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        border-bottom: 2px solid #eee;
+    }
+
+    .badge-status {
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+</style>
+
+<div class="container-fluid py-4">
+
+    <!-- Header Banner -->
+    <div class="dashboard-header d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">
+                <i class="bi bi-droplet-half me-1"></i> Welcome back, @ViewBag.FullName
+            </h3>
+            <p>Thank you for being part of our blood donation community — every donation counts.</p>
+        </div>
+        <a asp-controller="Home" asp-action="Logout" class="btn btn-logout">
+            <i class="bi bi-box-arrow-right me-1"></i> Logout
+        </a>
+    </div>
+
+    <!-- Eligibility Alert (only shows when relevant) -->
+    @if (ViewBag.IsEligibleToDonate == false)
+    {
+        <div class="alert eligibility-alert d-flex align-items-center mb-4" role="alert">
+            <i class="bi bi-hourglass-split me-3 fs-4 text-warning"></i>
+            <div>
+                <strong>You're not yet eligible to donate again.</strong>
+                <div class="small text-muted">
+                    Next eligible date: @ViewBag.NextEligibleDate?.ToString("dd MMM yyyy").
+                    Donors must wait at least 3 months between donations for safety.
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert d-flex align-items-center mb-4"
+             style="border-radius:12px; border-left:5px solid var(--brand-green); background:#eefaf1;">
+            <i class="bi bi-check-circle-fill me-3 fs-4 text-success"></i>
+            <div>
+                <strong>You're eligible to donate!</strong>
+                <div class="small text-muted">Consider scheduling your next donation to help someone in need.</div>
+            </div>
+        </div>
+    }
+
+    <!-- Statistics -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3 col-sm-6">
+            <div class="card stat-card">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stat-icon" style="background:#fdecea; color:var(--brand-red);">
+                        <i class="bi bi-droplet-fill"></i>
+                    </div>
+                    <div>
+                        <div class="stat-label">Total Donations</div>
+                        <p class="stat-value">@ViewBag.TotalDonations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card stat-card">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stat-icon" style="background:#eaf0fb; color:var(--brand-navy);">
+                        <i class="bi bi-file-earmark-medical-fill"></i>
+                    </div>
+                    <div>
+                        <div class="stat-label">Blood Requests</div>
+                        <p class="stat-value">@ViewBag.TotalRequests</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card stat-card">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stat-icon" style="background:#eafaf0; color:var(--brand-green);">
+                        <i class="bi bi-heart-pulse-fill"></i>
+                    </div>
+                    <div>
+                        <div class="stat-label">My Blood Group</div>
+                        <p class="stat-value">@ViewBag.BloodGroup</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card stat-card">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stat-icon" style="background:#fef6e7; color:var(--brand-amber);">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <div>
+                        <div class="stat-label">Account Status</div>
+                        <p class="stat-value">Active</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <h6 class="section-title">Quick Actions</h6>
+    <div class="row g-3 mb-4">
+        <div class="col-md-3 col-sm-6">
+            <a asp-controller="Donors" asp-action="Search" class="quick-action-card">
+                <i class="bi bi-search"></i>
+                <div class="qa-title">Search Donors</div>
+                <div class="qa-desc">Find donors by blood group & location</div>
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <a asp-controller="BloodRequests" asp-action="Create" class="quick-action-card">
+                <i class="bi bi-droplet"></i>
+                <div class="qa-title">Request Blood</div>
+                <div class="qa-desc">Submit an urgent blood request</div>
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <a asp-controller="Donors" asp-action="History" class="quick-action-card">
+                <i class="bi bi-clock-history"></i>
+                <div class="qa-title">Donation History</div>
+                <div class="qa-desc">View your past donation records</div>
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <a asp-controller="Account" asp-action="Profile" class="quick-action-card">
+                <i class="bi bi-person-gear"></i>
+                <div class="qa-title">My Profile</div>
+                <div class="qa-desc">Update your personal information</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card activity-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-activity me-2"></i>Recent Activity</span>
+            <a asp-controller="Donors" asp-action="History" class="small text-decoration-none"
+               style="color:var(--brand-red);">View all</a>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.RecentActivity != null && ((IEnumerable<dynamic>)ViewBag.RecentActivity).Any())
+            {
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Activity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var activity in ViewBag.RecentActivity)
+                        {
+                            <tr>
+                                <td>@activity.Date.ToString("dd MMM yyyy")</td>
+                                <td>@activity.Description</td>
+                                <td>
+                                    <span
+                                        class="badge badge-status bg-@(activity.Status == "Completed" ? "success" : activity.Status == "Pending" ? "warning" : "secondary")">
+                                        @activity.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <p class="mb-1 fw-semibold">No activity yet</p>
+                    <p class="small mb-3">Once you donate blood or submit a request, it'll show up here.</p>
+                    <a asp-controller="Donors" asp-action="Search" class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-search me-1"></i> Search Donors to Get Started
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
